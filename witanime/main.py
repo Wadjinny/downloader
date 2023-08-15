@@ -98,6 +98,7 @@ def download_from_mediafire(episode_link, output_path):
 
 def clean(output_dir):
     if len(list(output_dir.iterdir())) <= 1:
+        print("Deleting directory")
         output_dir.rmdir()    
 # %%
 def main():
@@ -125,18 +126,20 @@ def main():
             print(f"{i+1}/{len(episodes_link)} {ouptut_file}")
             if len(drive_ids) == 0:
                 print(f"No drive links found for {ouptut_file}")
-                clean(output_dir)
-                return
+    
             for drive_id in drive_ids:
                 try:
                     if not gdown.download(id=drive_id, output=str(output_dir/ouptut_file)):
-                        print(f"Failed to download from Drive, trying mediafire")
-                        download_from_mediafire(episode_link, output_dir/ouptut_file)
-                    break
+                        print(f"Failed to download from Drive, trying next link")
+                    else:
+                        break
                 except ValueError:
                             print(f"Error downloading https://drive.google.com/file/d/{drive_id}/view")
                             print(f"you may visit {episode_link} to download it manually")
                             download_from_mediafire(episode_link, output_dir/ouptut_file)
+            else:
+                print(f"all {len(drive_ids)} drive links failed, trying mediafire")
+                download_from_mediafire(episode_link, output_dir/ouptut_file)
         except KeyboardInterrupt:
             print("Exiting...")
             # if output_dir is empty delete it
