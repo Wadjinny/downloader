@@ -1,4 +1,5 @@
 witanime/video_providers/__pycache__/
+witanime/__pycache__/
 *.egg-info/
 build/
 env/

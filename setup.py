@@ -16,7 +16,7 @@ setup(
         packages = find_packages(),
         entry_points ={
             'console_scripts': [
-                'witanime = witanime.__main__:main'
+                'witanime = witanime.main:main'
             ]
         },
         install_requires = requirements,
