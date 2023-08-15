@@ -6,8 +6,8 @@ import gdown
 from pathlib import Path
 #to url encode
 from urllib.parse import quote
-from video_providers.drive import get_drive_ids_from_episode
-from video_providers.mediafire import get_mediafire_links_from_episode
+from witanime.video_providers.drive import get_drive_ids_from_episode
+from witanime.video_providers.mediafire import get_mediafire_links_from_episode
 
 
 

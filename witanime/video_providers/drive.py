@@ -1,7 +1,7 @@
 #%% %%
 import requests
 import re
-from video_providers.all_server_links import get_links_from_episode
+from witanime.video_providers.all_server_links import get_links_from_episode
 
 def get_drive_ids_from_episode(episode_link):
     def get_ids(link):
