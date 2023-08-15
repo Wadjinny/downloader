@@ -1,4 +1,4 @@
 requests
 beautifulsoup4
 gdown
--e git://github.com/Juvenal-Yescas/mediafire-dl
+git+git://github.com/Juvenal-Yescas/mediafire-dl
