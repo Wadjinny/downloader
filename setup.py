@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
 long_description = "Download anime from witanime"
   
 setup(
-        name ='witanime downloader',
+        name ='witanime',
         version ='1.0.0',
         author ='ilyas wadjinny',
         description = 'Download anime from witanime',
