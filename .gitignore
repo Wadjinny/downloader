@@ -1,1 +1,3 @@
 witanime/video_providers/__pycache__/
+*.egg-info/
+build/
