@@ -138,6 +138,7 @@ def get_drive_id_from_episode(episode_link):
     return drive_id
     
 #%% mediafire
+# pip3 install git+https://github.com/Juvenal-Yescas/mediafire-dl
 def get_mediafire_from_episode(episode_link):
     payload={}
     headers = {
@@ -176,6 +177,9 @@ def main():
     # search_term = "no game no life"
     search_term = input("Enter search term: ")
     search_results = get_search_results_link(search_term)
+    if len(search_results) == 0:
+        print("No results found")
+        return
     for i, result in enumerate(search_results):
         print(f"{i+1}. {result}")
     anime_index = input("Enter anime index: ")
