@@ -105,9 +105,9 @@ def get_drive_from_yonaplay(yonaplay_link):
         drive_id = drive_id.group(1)
     else:
         print("Error getting drive id from yonaplay")
+        drive_id = None
     # print(f"{drive_id = }")
-    return None
-
+    return drive_id
 # %% drive id 
 def get_drive_id_from_episode(episode_link):
     payload={}
