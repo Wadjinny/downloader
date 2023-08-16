@@ -3,7 +3,7 @@ from pathlib import Path
 import gdown 
 from witanime.video_providers.drive import get_drive_ids_from_episode
 from witanime.video_providers.mediafire import get_mediafire_links_from_episode
-from witanime.anime_site.witanime import get_episodes_list, get_search_results_link
+from witanime.anime_site.witanime_extractor import get_episodes_list, get_search_results_link
 import argparse
 
 def download_from_mediafire(episode_link, output_path):
