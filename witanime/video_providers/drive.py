@@ -28,7 +28,7 @@ def drive_dowload(episode_link, output_dir, ouptut_file):
         return False
     for drive_id in drive_ids:
         try:
-            if gdown.download(id=drive_id, output=str(output_dir/ouptut_file)):
+            if gdown.download(id=drive_id, output=str(output_dir / ouptut_file)):
                 return True
             else:
                 print(f"Failed to download from Drive, trying next link")
