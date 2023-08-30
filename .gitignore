@@ -1,7 +1,9 @@
 witanime/video_providers/__pycache__/
 witanime/witanime/__pycache__/
 witanime/anime_site/__pycache__/
+witanime/utils/__pycache__/
 witanime/__pycache__/
 *.egg-info/
 build/
 env/
+.vscode/
