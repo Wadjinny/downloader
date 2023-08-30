@@ -58,7 +58,7 @@ def main():
         try:
             ouptut_file = f"{anime_link.split('/')[-2]}_EP{i+1}.mp4"
             print(f"{i+1}/{len(episodes_link)} {ouptut_file}")
-            if not drive_dowload(episode_link, ouptut_file, output_dir):
+            if not drive_dowload(episode_link,output_dir ouptut_file):
                 print("Downloading from mediafire")
             if not download_from_mediafire(episode_link, output_dir, ouptut_file):
                 print("Downloading from mega.nz")
