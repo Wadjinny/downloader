@@ -39,6 +39,9 @@ def meganz_dowload(meganz_links, output_dir, ouptut_file):
             return True
         except subprocess.CalledProcessError:
             print(f"Error downloading {link}")
+    else:
+        print(f"all {len(meganz_links)} mega links failed")
+        return False
 
 
 # %%

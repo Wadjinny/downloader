@@ -20,6 +20,9 @@ def download_mediafire_links(mediafire_links, output_path, ouptut_file):
             return True
         except ValueError:
             print(f"Error downloading {link}")
+    else:
+        print(f"all {len(mediafire_links)} mediafire links failed")
+        return False
 
 
 def download_from_mediafire_witanime(episode_link, output_path, ouptut_file):

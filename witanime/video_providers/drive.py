@@ -31,7 +31,7 @@ def drive_dowload(drive_ids, output_dir, ouptut_file):
                 print(f"Failed to download from Drive, trying next link")
         except ValueError:
             print(f"Error downloading https://drive.google.com/file/d/{drive_id}/view")
-            return False
+            continue
         else:
             print(f"all {len(drive_ids)} drive links failed")
             return False
