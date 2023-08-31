@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("requirements.txt") as f:
     requirements = f.readlines()
 
-long_description = "Download anime from witanime"
+long_description = "Download anime from witanime and anime-sanka"
 
 setup(
     name="witanime",
@@ -15,7 +15,12 @@ setup(
     license="MIT",
     packages=find_packages(),
     include_package_data=True,
-    entry_points={"console_scripts": ["witanime = witanime.__main__:main"]},
+    entry_points={
+        "console_scripts": [
+            "witanime = witanime.witanime_main:main",
+            "animesanka = witanime.animesanka_main:main",
+        ]
+    },
     install_requires=requirements,
     zip_safe=False,
 )
