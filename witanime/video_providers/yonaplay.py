@@ -12,7 +12,7 @@ def get_links_from_yonaplay(yonaplay_link):
         "cache-control": "no-cache",
         "cookie": "cf_clearance=hx.b8jbx60dDMs494q5igh5N7taWSCwAyKbJ05pWOiY-1693370057-0-1-14edac47.f3a2f694.db7bb4f5-0.2.1693370057",
         "pragma": "no-cache",
-        "referer": "https://witanime.lol/",
+        "referer": "https://witanime.lat/",
         "sec-ch-ua": '"Not/A)Brand";v="99", "Google Chrome";v="115", "Chromium";v="115"',
         "sec-ch-ua-mobile": "?0",
         "sec-ch-ua-platform": '"Linux"',
@@ -33,3 +33,7 @@ def get_links_from_yonaplay(yonaplay_link):
 # %%
 if __name__ == "__main__":
     display(get_links_from_yonaplay("https://yonaplay.org/embed.php?id=1960"))
+
+# %%
+get_links_from_yonaplay("https://yonaplay.org/embed.php?id=12349")
+# %%

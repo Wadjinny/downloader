@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 from witanime.video_providers.yonaplay import get_links_from_yonaplay
 import re
 
+# base 64 decoder
+import base64
+
 # witanime headers
 
 headers = {
@@ -87,11 +90,19 @@ def get_episodes_list(anime_link):
     soup = BeautifulSoup(response, "html.parser")
     # .hover.ehover6>.overlay
     episodes = soup.select(".hover.ehover6>.overlay")
-    episodes = [episode["href"] for episode in episodes]
-    episodes_size = len(episodes)
+    # onclick="openEpisode('aHR0cHM6Ly93aXRhbmltZS5sYXQvZXBpc29kZS9ib3J1dG8tbmFydXRvLW5leHQtZ2VuZXJhdGlvbnMtJWQ4JWE3JWQ5JTg0JWQ4JWFkJWQ5JTg0JWQ5JTgyJWQ4JWE5LTEv')"
+
+    # episodes = [re.search(r"openEpisode\('(.*)'\)", episode["onclick"]).group(1)
+    #             for episode in episodes]
+    episodes_links = []
+    for episode in episodes:
+        episode = re.search(r"openEpisode\('(.*)'\)", episode["onclick"]).group(1)
+        episode = base64.b64decode(episode).decode("utf-8")
+        episodes_links.append(episode)
+
     # print(f"{episodes_size = }")
     # print(f"{episodes[:10] = }")
-    return episodes
+    return episodes_links
 
 
 # %%
@@ -116,19 +127,19 @@ def get_links_from_episode(episode_link):
         "upgrade-insecure-requests": "1",
         "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
     }
-
     response = requests.request("GET", episode_link, headers=headers, data=payload)
 
     response = response.text
 
     soup = BeautifulSoup(response, "html.parser")
     # #episode-servers>li>a
-    server_links = soup.select("#episode-servers>li>a")
-    server_links = [link["data-ep-url"] for link in server_links]
+    server_links = re.findall(r"loadIframe\('(.*)', '.*'\)", response)
+    server_links = [base64.b64decode(link).decode("utf-8") for link in server_links]
 
-    # .quality-list>ul>li>a
-    download_links = soup.select(".quality-list>li>a")
+    # .download-link
+    download_links = soup.select(".download-link")
     download_links = [link["href"] for link in download_links][::-1]
+    download_links = [base64.b64decode(link).decode("utf-8") for link in download_links]
     server_links.extend(download_links)
 
     yonaplay_id = re.search(r"https://yonaplay.org/embed.php\?id=\d+", response)
@@ -146,4 +157,5 @@ if __name__ == "__main__":
         "https://witanime.lol/episode/one-piece-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-1/"
     )
     get_links_from_episode(episode_link)
+
 # %%
