@@ -35,5 +35,3 @@ if __name__ == "__main__":
     display(get_links_from_yonaplay("https://yonaplay.org/embed.php?id=1960"))
 
 # %%
-get_links_from_yonaplay("https://yonaplay.org/embed.php?id=12349")
-# %%
