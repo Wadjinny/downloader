@@ -171,7 +171,7 @@ class MultiConnectionDownloader:
 # %%
 
 
-def dowload_from_url(url, headers=None, output_dir=None, filename=None):
+def dowload_from_url(url, headers=None, output_dir: Path = None, filename=None):
     if headers is None:
         headers = {}
 
@@ -231,5 +231,5 @@ def dowload_from_url(url, headers=None, output_dir=None, filename=None):
 
 
 if __name__ == "__main__":
-    URL = "https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-desktop-amd64.iso"
+    URL = "https://old-releases.ubuntu.com/releases/22.04.1/ubuntu-22.04.1-desktop-amd64.iso"
     dowload_from_url(URL)

@@ -1,7 +1,6 @@
 # %% %%
 import requests
 import re
-from witanime.anime_site.witanime_extractor import get_links_from_episode
 import mediafire_dl
 
 
@@ -16,8 +15,10 @@ def download_mediafire_links(mediafire_links, output_path, ouptut_file):
         return False
     for link in mediafire_links:
         try:
-            mediafire_dl.download(link, str(output_path / ouptut_file), quiet=False)
-            return True
+            if mediafire_dl.download(link, str(output_path / ouptut_file), quiet=False):
+                return True
+            else:
+                print(f"Error downloading from mediafire, trying next link")
         except ValueError:
             print(f"Error downloading {link}")
     else:
@@ -25,9 +26,7 @@ def download_mediafire_links(mediafire_links, output_path, ouptut_file):
         return False
 
 
-def download_from_mediafire_witanime(episode_link, output_path, ouptut_file):
-    all_server_links = get_links_from_episode(episode_link)
-
+def download_from_mediafire_witanime(all_server_links, output_path, ouptut_file):
     mediafire_links = filter_mediafire_links(all_server_links)
     return download_mediafire_links(mediafire_links, output_path, ouptut_file)
 

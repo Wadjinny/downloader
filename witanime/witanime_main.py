@@ -4,6 +4,9 @@ import gdown
 from witanime.video_providers.drive import drive_dowload_witanime
 from witanime.video_providers.mediafire import download_from_mediafire_witanime
 from witanime.video_providers.meganz import meganz_dowload_witanime
+from witanime.video_providers.okru import okru_dowload_witanime
+from witanime.anime_site.witanime_extractor import get_links_from_episode
+
 from witanime.anime_site.witanime_extractor import (
     get_episodes_list,
     get_search_results_link,
@@ -67,17 +70,24 @@ def main():
         ]
 
     for i, episode_link in enumerate(episodes_link):
+        all_server_links = get_links_from_episode(episode_link)
         try:
             ouptut_file = f"{anime_link.split('/')[-2]}_EP{i+1}.mp4"
             print(f"{i+1}/{len(episodes_link)} {ouptut_file}")
-            if drive_dowload_witanime(episode_link, output_dir, ouptut_file):
+            if drive_dowload_witanime(all_server_links, output_dir, ouptut_file):
                 continue
 
             print("Downloading from mediafire")
-            if download_from_mediafire_witanime(episode_link, output_dir, ouptut_file):
+            if download_from_mediafire_witanime(
+                all_server_links, output_dir, ouptut_file
+            ):
                 continue
             print("Downloading from mega.nz")
-            if meganz_dowload_witanime(episode_link, output_dir, ouptut_file):
+            if meganz_dowload_witanime(all_server_links, output_dir, ouptut_file):
+                continue
+
+            print("Downloading from ok.ru")
+            if okru_dowload_witanime(all_server_links, output_dir, ouptut_file):
                 continue
 
             print(f"Failed to download {ouptut_file}")

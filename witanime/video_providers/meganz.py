@@ -1,7 +1,6 @@
 # %% %%
 import requests
 import re
-from witanime.anime_site.witanime_extractor import get_links_from_episode
 from pathlib import Path
 import subprocess
 
@@ -45,10 +44,9 @@ def meganz_dowload(meganz_links, output_dir, ouptut_file):
 
 
 # %%
-def meganz_dowload_witanime(episode_link, output_dir, ouptut_file):
+def meganz_dowload_witanime(all_server_links, output_dir, ouptut_file):
     """wrapper for megatools, use megadl command to download"""
-    server_links = get_links_from_episode(episode_link)
-    meganz_links = filter_meganz_links(server_links)
+    meganz_links = filter_meganz_links(all_server_links)
     return meganz_dowload(meganz_links, output_dir, ouptut_file)
 
 

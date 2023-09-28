@@ -2,7 +2,6 @@
 import requests
 import re
 import gdown
-from witanime.anime_site.witanime_extractor import get_links_from_episode
 from pathlib import Path
 
 
@@ -28,17 +27,17 @@ def drive_dowload(drive_ids, output_dir, ouptut_file):
             if gdown.download(id=drive_id, output=str(output_dir / ouptut_file)):
                 return True
             else:
-                print(f"Failed to download from Drive, trying next link")
+                print(
+                    f"Error downloading https://drive.google.com/file/d/{drive_id}/view"
+                )
         except ValueError:
             print(f"Error downloading https://drive.google.com/file/d/{drive_id}/view")
-            continue
-        else:
-            print(f"all {len(drive_ids)} drive links failed")
-            return False
+    else:
+        print(f"all {len(drive_ids)} drive links failed")
+        return False
 
 
 # %%
-def drive_dowload_witanime(episode_link, output_dir, ouptut_file):
-    all_server_links = get_links_from_episode(episode_link)
+def drive_dowload_witanime(all_server_links, output_dir, ouptut_file):
     drive_ids = filter_drive_ids(all_server_links)
     return drive_dowload(drive_ids, output_dir, ouptut_file)
