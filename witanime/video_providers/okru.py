@@ -43,13 +43,18 @@ def filter_okru_links(server_links):
 
 
 def okru_dowload_witanime(all_server_links, output_dir, ouptut_file):
-    """wrapper for megatools, use megadl command to download"""
     okru_links = filter_okru_links(all_server_links)
+    if len(okru_links) == 0:
+        print(f"No ok.ru links found for {ouptut_file}")
+        return False
     for okru_link in okru_links:
         if okru_download(okru_link, output_dir, ouptut_file):
             return True
         else:
             print(f"Error downloading from ok.ru, trying next link")
+    else:
+        print(f"all {len(okru_links)} ok.ru links failed")
+        return False
 
 
 # %%
