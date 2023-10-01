@@ -137,7 +137,7 @@ def get_all_episodes_server_link(episodes_link):
     # unescape the string
     response = response.encode().decode("unicode-escape").replace("\/", "/")
     # select all line with <option
-    option_lines = re.findall(r"<option.*", response)
+    option_lines = re.findall(r"<option(.*?)<\/option>", response, re.S)
     episodes_list = []
     if "@" in option_lines[0]:
         for line in option_lines:
@@ -147,10 +147,15 @@ def get_all_episodes_server_link(episodes_link):
             episodes_list.append((episode_num, links))
     else:
         movie_links = []
-        for line in option_lines:
-            links = re.findall(r"(http.*?)[\s|'|\"]", line)[0]
-            movie_links.append(links)
-        episodes_list.append(("1", movie_links))
+        try:
+            for line in option_lines:
+                links = re.findall(r"(http.*?)[\s|'|\"]", line)[0]
+                movie_links.append(links)
+            episodes_list.append(("1", movie_links))
+        except Exception as e:
+            print(option_lines)
+            print(response)
+            raise e
     # print(episodes_list[:3])
     return episodes_list
 
