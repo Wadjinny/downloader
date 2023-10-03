@@ -68,11 +68,15 @@ def main():
         episodes_link = [
             link for link, select in zip(episodes_link, selector) if select
         ]
+        episode_num = [i + 1 for i, select in enumerate(selector) if select]
 
     for i, episode_link in enumerate(episodes_link):
         all_server_links = get_links_from_episode(episode_link)
         try:
-            ouptut_file = f"{anime_link.split('/')[-2]}_EP{i+1}.mp4"
+            if args.r:
+                ouptut_file = f"{anime_link.split('/')[-2]}_EP{episode_num[i]}.mp4"
+            else:
+                ouptut_file = f"{anime_link.split('/')[-2]}_EP{i+1}.mp4"
             print(f"{i+1}/{len(episodes_link)} {ouptut_file}")
             if drive_dowload_witanime(all_server_links, output_dir, ouptut_file):
                 continue
