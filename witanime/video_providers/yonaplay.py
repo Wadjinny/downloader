@@ -32,6 +32,6 @@ def get_links_from_yonaplay(yonaplay_link):
 
 # %%
 if __name__ == "__main__":
-    display(get_links_from_yonaplay("https://yonaplay.org/embed.php?id=1960"))
+    display(get_links_from_yonaplay("https://yonaplay.org/embed.php?id=630"))
 
 # %%

@@ -10,6 +10,7 @@ from witanime.video_providers.mediafire import (
     filter_mediafire_links,
 )
 from witanime.video_providers.meganz import meganz_dowload, filter_meganz_links
+from witanime.video_providers.okru import okru_dowload_witanime
 
 import argparse
 from glob import glob
@@ -62,27 +63,29 @@ def main():
             link for link, select in zip(episodes_link, selector) if select
         ]
 
-    for epside_num, all_servers_link in episodes_link:
+    for epside_num, all_server_links in episodes_link:
         try:
             ouptut_file = f"{anime_name}_EP{epside_num}.mp4"
             print(f"{epside_num}/{len(episodes_link)} {ouptut_file}")
-            drive_ids = filter_drive_ids(all_servers_link)
+            drive_ids = filter_drive_ids(all_server_links)
+            print("Downloading from google drive")
             if drive_dowload(drive_ids, output_dir, ouptut_file):
                 continue
 
-            print("Failed to download from Drive, trying next link")
             print("Downloading from mediafire")
-            mediafire_links = filter_mediafire_links(all_servers_link)
+            mediafire_links = filter_mediafire_links(all_server_links)
             if download_mediafire_links(mediafire_links, output_dir, ouptut_file):
                 continue
 
-            print("Failed to download from mediafire, trying next link")
             print("Downloading from mega.nz")
-            meganz_links = filter_meganz_links(all_servers_link)
+            meganz_links = filter_meganz_links(all_server_links)
             if meganz_dowload(meganz_links, output_dir, ouptut_file):
                 continue
 
-            print("Failed to download from mega.nz, trying next link")
+            print("Downloading from ok.ru")
+            if okru_dowload_witanime(all_server_links, output_dir, ouptut_file):
+                continue
+
             print("Failed to download from all links")
             print("Skipping...")
         except KeyboardInterrupt:
