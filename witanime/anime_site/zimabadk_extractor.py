@@ -50,14 +50,14 @@ def get_episodes_list(anime_link):
     # .episodes-list a
     links = soup.select(".episodes-list a")
     links = [link["href"] for link in links]
-    return links
+    return links[::-1]
 
 
 anime_link = "https://www.zimabadk.com/anime/naruto/"
 # get_episodes_list(anime_link)
 # %%
 
-episode_link = "https://www.zimabadk.com/jigokuraku-e-1/"
+episode_link = "https://www.zimabadk.com/jigokuraku-e-11/"
 
 
 def get_links_from_episode(episode_link):

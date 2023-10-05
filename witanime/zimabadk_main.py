@@ -70,6 +70,8 @@ def main():
 
     for i, episode_link in enumerate(episodes_link):
         all_server_links = get_links_from_episode(episode_link)
+        # print(episode_link)
+        # print(all_server_links)
         try:
             if args.r:
                 ouptut_file = f"{anime_link.split('/')[-2]}_EP{episode_num[i]}.mp4"
