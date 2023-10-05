@@ -110,8 +110,12 @@ def get_all_episodes_server_link(episodes_link):
     # ", {id: '2088894109015915446', link: 'https://prwd.animesanka.club/2021/02/bleach.html'}"
     # select id
 
-    id = re.search(f", {{id: '(.*)', link: '{search_link}'}}", response).group(1)
-
+    id = re.search(f", {{id: '(.*)', link: '{search_link}'}}", response)
+    if id is not None:
+        id = id.group(1)
+    else:
+        print(f"No episodes found for {episodes_link}")
+        return []
     url = f"https://prwd.animesanka.club/feeds/posts/default/{id}?alt=json-in-script"
 
     payload = {}

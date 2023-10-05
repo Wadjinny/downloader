@@ -19,6 +19,7 @@ setup(
         "console_scripts": [
             "witanime = witanime.witanime_main:main",
             "animesanka = witanime.animesanka_main:main",
+            "zimabadk = witanime.zimabadk_main:main",
         ]
     },
     install_requires=requirements,
