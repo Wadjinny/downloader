@@ -69,7 +69,7 @@ def main():
             link for link, select in zip(episodes_link, selector) if select
         ]
         episode_num = [i + 1 for i, select in enumerate(selector) if select]
-
+    skiped_episodes = []
     for i, episode_link in enumerate(episodes_link):
         all_server_links = get_links_from_episode(episode_link)
         try:
@@ -95,12 +95,15 @@ def main():
                 continue
 
             print(f"Failed to download {ouptut_file}")
-
+            print("Skipping...")
+            skiped_episodes.append(str(i + 1))
         except KeyboardInterrupt:
             print("Exiting...")
             # if output_dir is empty delete it
             clean(output_dir)
             return
+
+    print(f"Skiped episodes: {', '.join(skiped_episodes)}")
     clean(output_dir)
 
 

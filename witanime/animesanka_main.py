@@ -62,7 +62,7 @@ def main():
         episodes_link = [
             link for link, select in zip(episodes_link, selector) if select
         ]
-
+    skiped_episodes = []
     for epside_num, all_server_links in episodes_link:
         try:
             ouptut_file = f"{anime_name}_EP{epside_num}.mp4"
@@ -88,11 +88,14 @@ def main():
 
             print("Failed to download from all links")
             print("Skipping...")
+
+            skiped_episodes.append(epside_num)
         except KeyboardInterrupt:
             print("Exiting...")
             # if output_dir is empty delete it
             clean(output_dir)
             return
+    print(f"Skiped episodes: {', '.join(skiped_episodes)}")
     clean(output_dir)
 
 
