@@ -84,25 +84,33 @@ def get_links_from_episode(episode_link):
     response = response.text
 
     soup = BeautifulSoup(response, "html.parser")
-    # #episode-servers>li>a
-    server_links = re.findall(r"loadIframe\('(.*)', '.*'\)", response)
-    server_links = [base64.b64decode(link).decode("utf-8") for link in server_links]
+    server_links = soup.select("#episode-servers a")
+    server_links = [
+        base64.b64decode(a["data-url"]).decode("utf-8") for a in server_links
+    ]
 
-    # .download-link
-    download_links = soup.select(".download-link")
-    download_links = [link["href"] for link in download_links][::-1]
-    download_links = [base64.b64decode(link).decode("utf-8") for link in download_links]
+    download_links = soup.select(".quality-list a")
+    download_links = [
+        base64.b64decode(a["data-url"]).decode("utf-8") for a in download_links
+    ]
+    download_links = download_links[::-1]
     server_links.extend(download_links)
-
     yonaplay_id = list(filter(lambda x: "yonaplay" in x, server_links))
     # print(yonaplay_id)
     if yonaplay_id:
         yonaplay_id = yonaplay_id[0]
-        server_links.extend(get_links_from_yonaplay(yonaplay_id))
+        yonaplay_server_links = get_links_from_yonaplay(yonaplay_id)
+        server_links.extend(yonaplay_server_links)
+    else:
+        print("no yonaplay")
 
     return server_links
 
 
+link = (
+    "https://witanime.pics/episode/soul-eater-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-1/"
+)
+get_links_from_episode(link)
 # %%
 if __name__ == "__main__":
     episode_link = "https://witanime.icu/episode/jigokuraku-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-13/"
